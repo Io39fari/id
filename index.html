@@ -1,0 +1,1744 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dalam ID — Register</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="shortcut icon" href="https://dalam.world/uploads/monthly_2026_02/favicon-dw.ico.57224f73f7d958bcfcedbcb16bdd7c65.ico">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ========== RESET & ПЕРЕМЕННЫЕ ========== */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --dark:        #0d1117;
+            --dark-card:   #1c2128;
+            --dark-border: #30363d;
+            --gold:        #c9943a;
+            --gold-light:  #e8b84b;
+            --text:        #e6edf3;
+            --text-muted:  #8b949e;
+            --success:     #3fb950;
+            --error:       #f85149;
+        }
+
+        /* ========== ФОН ========== */
+        body {
+            min-height: 100vh;
+            font-family: 'Inter', sans-serif;
+            color: var(--text);
+            background: var(--dark);
+            overflow-x: hidden;
+        }
+
+        .bg-layer {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            background: url('https://ru.dalam.world/dwback.jpeg') center/cover no-repeat;
+        }
+
+        .bg-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 1;
+            background: linear-gradient(
+                135deg,
+                rgba(13, 17, 23, 0.92) 0%,
+                rgba(13, 17, 23, 0.82) 50%,
+                rgba(13, 17, 23, 0.90) 100%
+            );
+        }
+
+        /* ========== LAYOUT ========== */
+        .page-wrapper {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 24px;
+            gap: 48px;
+        }
+
+        /* ========== МАСКОТ ========== */
+        .mascot {
+            animation: slideInRight 0.7s ease 0.2s both;
+            flex-shrink: 0;
+            user-select: none;
+        }
+
+        .mascot img {
+            height: 480px;
+            max-height: 65vh;
+            width: auto;
+            filter: drop-shadow(0 0 40px rgba(201, 148, 58, 0.2));
+            transition: transform 0.4s ease;
+        }
+
+        .mascot img:hover {
+            transform: scale(1.03) rotate(1deg);
+        }
+
+        /* ========== КАРТОЧКА ========== */
+        .card {
+            background: rgba(28, 33, 40, 0.82);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(201, 148, 58, 0.35);
+            border-radius: 16px;
+            padding: 36px 32px 28px;
+            width: 420px;
+            max-width: 100%;
+            animation: fadeInUp 0.5s ease;
+            position: relative;
+            box-shadow:
+                0 0 60px rgba(201, 148, 58, 0.06),
+                0 24px 64px rgba(0, 0, 0, 0.5);
+            transition: border-color 0.3s ease;
+        }
+
+        .card:hover {
+            border-color: rgba(201, 148, 58, 0.55);
+        }
+
+        /* ========== ПЕРЕКЛЮЧАТЕЛЬ ЯЗЫКОВ ========== */
+        .lang-switcher {
+            position: absolute;
+            top: 14px;
+            right: 14px;
+            display: flex;
+            gap: 3px;
+            align-items: center;
+            flex-wrap: wrap;
+            max-width: 290px;
+            justify-content: flex-end;
+        }
+
+        .lang-btn {
+            padding: 3px 7px;
+            background: transparent;
+            border: 1px solid var(--dark-border);
+            border-radius: 4px;
+            color: var(--text-muted);
+            font-size: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Inter', sans-serif;
+            text-transform: uppercase;
+            line-height: 1.4;
+        }
+
+        .lang-btn:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        .lang-btn.active {
+            background: var(--gold);
+            border-color: var(--gold);
+            color: var(--dark);
+        }
+
+        .lang-more {
+            position: relative;
+        }
+
+        .lang-dropdown {
+            display: none;
+            position: absolute;
+            top: calc(100% + 6px);
+            right: 0;
+            background: var(--dark-card);
+            border: 1px solid var(--dark-border);
+            border-radius: 8px;
+            padding: 4px;
+            min-width: 160px;
+            z-index: 200;
+            max-height: 240px;
+            overflow-y: auto;
+            box-shadow: 0 12px 36px rgba(0,0,0,0.5);
+        }
+
+        .lang-dropdown.open { display: block; }
+
+        .lang-dropdown::-webkit-scrollbar { width: 4px; }
+        .lang-dropdown::-webkit-scrollbar-track { background: transparent; }
+        .lang-dropdown::-webkit-scrollbar-thumb { background: var(--dark-border); border-radius: 2px; }
+
+        .lang-dropdown button {
+            display: block;
+            width: 100%;
+            padding: 7px 12px;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 13px;
+            text-align: left;
+            cursor: pointer;
+            border-radius: 4px;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.15s;
+        }
+
+        .lang-dropdown button:hover {
+            background: rgba(201, 148, 58, 0.1);
+            color: var(--gold);
+        }
+
+        /* ========== ШАПКА КАРТОЧКИ ========== */
+        .card-header {
+            text-align: center;
+            margin-bottom: 28px;
+            padding-top: 8px;
+        }
+
+        .brand-icon {
+            font-size: 28px;
+            margin-bottom: 4px;
+            display: block;
+        }
+
+        .brand-name {
+            font-family: 'Cinzel', serif;
+            font-weight: 900;
+            font-size: 28px;
+            color: var(--gold);
+            letter-spacing: 3px;
+            line-height: 1.2;
+            margin-bottom: 6px;
+        }
+
+        .page-subtitle {
+            color: var(--text-muted);
+            font-size: 14px;
+            font-weight: 300;
+            letter-spacing: 0.3px;
+        }
+
+        /* ========== ФОРМА ========== */
+        .form-horizontal { margin: 0; }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 16px;
+            background: var(--dark);
+            border: 1px solid var(--dark-border);
+            border-radius: 8px;
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .form-control:focus {
+            border-color: var(--gold);
+            box-shadow: 0 0 0 3px rgba(201, 148, 58, 0.15);
+        }
+
+        .form-control::placeholder {
+            color: var(--text-muted);
+            opacity: 0.7;
+        }
+
+        .form-control.input-error {
+            border-color: var(--error);
+            box-shadow: 0 0 0 3px rgba(248, 81, 73, 0.12);
+        }
+
+        .error {
+            color: var(--error);
+            font-size: 12px;
+            margin-top: 4px;
+            min-height: 0;
+            line-height: 1.4;
+        }
+
+        /* ========== УПРАВЛЕНИЕ ПАРОЛЕМ ========== */
+        .pass-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            font-size: 13px;
+        }
+
+        .pass-controls a {
+            color: var(--gold);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .pass-controls a:hover {
+            color: var(--gold-light);
+            text-decoration: underline;
+        }
+
+        .pass-controls label {
+            color: var(--text-muted);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            user-select: none;
+        }
+
+        /* ========== ЧЕКБОКСЫ ========== */
+        .checkbox-group {
+            margin-bottom: 20px;
+        }
+
+        .checkbox-group label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-muted);
+            font-size: 13px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        input[type="checkbox"] {
+            accent-color: var(--gold);
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        /* ========== СООБЩЕНИЯ ========== */
+        #messages {
+            min-height: 8px;
+            margin-bottom: 8px;
+        }
+
+        .alert {
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            line-height: 1.5;
+            animation: fadeInUp 0.3s ease;
+        }
+
+        .alert-success {
+            background: rgba(63, 185, 80, 0.08);
+            border: 1px solid rgba(63, 185, 80, 0.25);
+            color: var(--success);
+        }
+
+        .alert-success h4 {
+            margin-bottom: 4px;
+            font-size: 16px;
+        }
+
+        .alert-danger {
+            background: rgba(248, 81, 73, 0.08);
+            border: 1px solid rgba(248, 81, 73, 0.25);
+            color: var(--error);
+        }
+
+        .alert-danger ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        /* ========== КНОПКА РЕГИСТРАЦИИ ========== */
+        .btn-register {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+            border: none;
+            border-radius: 8px;
+            color: var(--dark);
+            font-family: 'Cinzel', serif;
+            font-weight: 700;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 0.8px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-register::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, transparent 0%, rgba(255,255,255,0.15) 50%, transparent 100%);
+            transform: translateX(-100%);
+            transition: transform 0.5s ease;
+        }
+
+        .btn-register:hover::after {
+            transform: translateX(100%);
+        }
+
+        .btn-register:hover {
+            box-shadow: 0 0 24px rgba(201, 148, 58, 0.5), 0 4px 16px rgba(201, 148, 58, 0.25);
+            transform: translateY(-2px);
+        }
+
+        .btn-register:active {
+            transform: translateY(0);
+            box-shadow: 0 0 12px rgba(201, 148, 58, 0.3);
+        }
+
+        .btn-register:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        .btn-register:disabled::after { display: none; }
+
+        /* ========== НИЖНИЕ ССЫЛКИ ========== */
+        .bottom-links {
+            display: flex;
+            gap: 10px;
+            margin-top: 18px;
+        }
+
+        .btn-secondary {
+            flex: 1;
+            padding: 10px 8px;
+            background: transparent;
+            border: 1px solid var(--dark-border);
+            border-radius: 8px;
+            color: var(--text-muted);
+            text-decoration: none;
+            text-align: center;
+            font-size: 12px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+            background: rgba(201, 148, 58, 0.05);
+        }
+
+        /* ========== АНИМАЦИИ ========== */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(50px); }
+            to   { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes successPulse {
+            0%   { border-color: rgba(201, 148, 58, 0.35); }
+            40%  { border-color: rgba(63, 185, 80, 0.7); box-shadow: 0 0 40px rgba(63, 185, 80, 0.15); }
+            100% { border-color: rgba(201, 148, 58, 0.35); box-shadow: 0 0 60px rgba(201, 148, 58, 0.06), 0 24px 64px rgba(0,0,0,0.5); }
+        }
+
+        .success-flash {
+            animation: successPulse 0.8s ease !important;
+        }
+
+        /* ========== АДАПТИВНОСТЬ ========== */
+        @media (max-width: 992px) {
+            .mascot { display: none; }
+            .page-wrapper { justify-content: center; }
+        }
+
+        @media (max-width: 480px) {
+            .card { padding: 28px 20px 22px; border-radius: 12px; }
+            .brand-name { font-size: 22px; letter-spacing: 2px; }
+            .form-control { padding: 11px 14px; font-size: 13px; }
+            .btn-register { padding: 12px; font-size: 14px; }
+            .bottom-links { flex-direction: column; }
+            .btn-secondary { font-size: 13px; padding: 11px; }
+            .lang-switcher { max-width: 200px; }
+        }
+
+        /* ========== УТИЛИТЫ ========== */
+        [dir="rtl"] .pass-controls { flex-direction: row-reverse; }
+        [dir="rtl"] .checkbox-group label { flex-direction: row-reverse; }
+    </style>
+</head>
+<body>
+
+    <!-- Фон -->
+    <div class="bg-layer"></div>
+    <div class="bg-overlay"></div>
+
+    <!-- Контент -->
+    <div class="page-wrapper">
+
+        <!-- Маскот (только десктоп) -->
+        <div class="mascot">
+            <img src="https://ru.dalam.world/thl.png" alt="Dalam World Mascot">
+        </div>
+
+        <!-- Карточка формы -->
+        <div class="card" id="card">
+
+            <!-- Переключатель языков -->
+            <div class="lang-switcher" id="lang-switcher"></div>
+
+            <!-- Шапка -->
+            <div class="card-header">
+                <span class="brand-icon">&#9876;&#65039;</span>
+                <h1 class="brand-name">Dalam ID</h1>
+                <p class="page-subtitle" id="page-subtitle"></p>
+            </div>
+
+            <!-- Форма -->
+            <form class="form-horizontal" id="register-form"
+                  action="https://cp.dalam.world/register"
+                  method="post" novalidate="">
+
+                <input type="hidden" name="GHTWEB_CSRF_TOKEN"
+                       id="GHTWEB_CSRF_TOKEN" value="">
+
+                <!-- Логин -->
+                <div class="form-group">
+                    <input class="form-control"
+                           name="RegisterForm[login]"
+                           id="RegisterForm_login"
+                           type="text" maxlength="14" required=""
+                           autocomplete="username">
+                    <div class="error" id="err-login"></div>
+                </div>
+
+                <!-- Пароль -->
+                <div class="form-group">
+                    <input class="form-control"
+                           name="RegisterForm[password]"
+                           id="RegisterForm_password"
+                           type="password" maxlength="16" required=""
+                           autocomplete="new-password">
+                    <div class="error" id="err-password"></div>
+                </div>
+
+                <!-- Повтор пароля -->
+                <div class="form-group">
+                    <input class="form-control"
+                           name="RegisterForm[re_password]"
+                           id="RegisterForm_re_password"
+                           type="password" maxlength="16" required=""
+                           autocomplete="new-password">
+                    <div class="error" id="err-repassword"></div>
+                </div>
+
+                <!-- Управление паролем -->
+                <div class="pass-controls">
+                    <a href="#" id="gen-pass">Generate Password</a>
+                    <label>
+                        <input type="checkbox" id="show-pass">
+                        <span id="show-pass-label">Show password</span>
+                    </label>
+                </div>
+
+                <!-- Email -->
+                <div class="form-group">
+                    <input class="form-control"
+                           name="RegisterForm[email]"
+                           id="RegisterForm_email"
+                           type="email" required=""
+                           autocomplete="email">
+                    <div class="error" id="err-email"></div>
+                </div>
+
+                <!-- Реферальный код -->
+                <div class="form-group" id="referer-group">
+                    <input class="form-control"
+                           name="RegisterForm[referer]"
+                           id="RegisterForm_referer"
+                           type="text" maxlength="10" value="">
+                </div>
+
+                <!-- Сохранить TXT -->
+                <div class="form-group checkbox-group" id="save-txt-group">
+                    <label>
+                        <input type="checkbox" id="save-txt-checkbox">
+                        <span id="save-txt-label">Save account to .txt file</span>
+                    </label>
+                </div>
+
+                <!-- Сообщения -->
+                <div id="messages"></div>
+
+                <!-- Кнопка -->
+                <button type="submit" class="btn-register" id="submit-btn">
+                    Register
+                </button>
+            </form>
+
+            <!-- Нижние ссылки -->
+            <div class="bottom-links">
+                <a href="https://cp.dalam.world/login" class="btn-secondary" id="link-cp">
+                    &#127918; <span>Control Panel</span>
+                </a>
+                <a href="https://dalam.world/forums" class="btn-secondary" id="link-forum">
+                    &#128172; <span>Forum</span>
+                </a>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+    (function(){
+
+        /* ==================== ПЕРЕВОДЫ (23 языка) ==================== */
+        const translations = {
+            en: {
+                loginPlaceholder: "Login",
+                passwordPlaceholder: "Password",
+                repasswordPlaceholder: "Repeat Password",
+                emailPlaceholder: "Email",
+                refererPlaceholder: "Referral Code",
+                registerButton: "Create Dalam ID",
+                genPass: "Generate Password",
+                showPass: "Show password",
+                saveTxt: "Save account to .txt file",
+                pageTitle: "Register",
+                pageSubtitle: "Your passport to Dalam World",
+                loginError: "Login: 6\u201314 characters, allowed A-Za-z0-9-",
+                passwordError: "Password: must be 6\u201316 characters long",
+                repasswordError: "Passwords do not match",
+                emailError: "Invalid email format",
+                loginExists: "Login <b>{value}</b> already exists.",
+                emailExists: "Email <b>{value}</b> already exists.",
+                successTitle: "Congratulations!",
+                successText: "You have successfully registered an account in Dalam World.\n\nDownload the game from our website Dalam.World!\nThe game is supported on Windows, Linux, MacOS",
+                sending: "Creating account...",
+                controlPanel: "Control Panel",
+                forum: "Forum",
+                fileHeader: "Dalam World Account\n\n",
+                loginLabel: "Login: ",
+                passwordLabel: "Password: ",
+                emailLabel: "Email: "
+            },
+            ru: {
+                loginPlaceholder: "\u041b\u043e\u0433\u0438\u043d",
+                passwordPlaceholder: "\u041f\u0430\u0440\u043e\u043b\u044c",
+                repasswordPlaceholder: "\u041f\u043e\u0432\u0442\u043e\u0440 \u043f\u0430\u0440\u043e\u043b\u044f",
+                emailPlaceholder: "Email",
+                refererPlaceholder: "\u0420\u0435\u0444\u0435\u0440\u0430\u043b\u044c\u043d\u044b\u0439 \u043a\u043e\u0434",
+                registerButton: "\u0421\u043e\u0437\u0434\u0430\u0442\u044c Dalam ID",
+                genPass: "\u0421\u0433\u0435\u043d\u0435\u0440\u0438\u0440\u043e\u0432\u0430\u0442\u044c \u043f\u0430\u0440\u043e\u043b\u044c",
+                showPass: "\u041f\u043e\u043a\u0430\u0437\u0430\u0442\u044c \u043f\u0430\u0440\u043e\u043b\u044c",
+                saveTxt: "\u0421\u043e\u0445\u0440\u0430\u043d\u0438\u0442\u044c \u0430\u043a\u043a\u0430\u0443\u043d\u0442 \u0432 .txt \u0444\u0430\u0439\u043b",
+                pageTitle: "\u0420\u0435\u0433\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u044f",
+                pageSubtitle: "\u0412\u0430\u0448 \u043f\u0430\u0441\u043f\u043e\u0440\u0442 \u0432 \u043c\u0438\u0440 Dalam",
+                loginError: "\u041b\u043e\u0433\u0438\u043d: 6\u201314 \u0441\u0438\u043c\u0432\u043e\u043b\u043e\u0432, \u0434\u043e\u043f\u0443\u0441\u0442\u0438\u043c\u044b A-Za-z0-9-",
+                passwordError: "\u041f\u0430\u0440\u043e\u043b\u044c: \u0434\u043b\u0438\u043d\u0430 \u0434\u043e\u043b\u0436\u043d\u0430 \u0431\u044b\u0442\u044c 6\u201316 \u0441\u0438\u043c\u0432\u043e\u043b\u043e\u0432",
+                repasswordError: "\u041f\u0430\u0440\u043e\u043b\u0438 \u043d\u0435 \u0441\u043e\u0432\u043f\u0430\u0434\u0430\u044e\u0442",
+                emailError: "\u041d\u0435\u0432\u0435\u0440\u043d\u044b\u0439 \u0444\u043e\u0440\u043c\u0430\u0442 email",
+                loginExists: "\u041b\u043e\u0433\u0438\u043d <b>{value}</b> \u0443\u0436\u0435 \u0441\u0443\u0449\u0435\u0441\u0442\u0432\u0443\u0435\u0442.",
+                emailExists: "Email <b>{value}</b> \u0443\u0436\u0435 \u0441\u0443\u0449\u0435\u0441\u0442\u0432\u0443\u0435\u0442.",
+                successTitle: "\u041f\u043e\u0437\u0434\u0440\u0430\u0432\u043b\u044f\u0435\u043c \u0441 \u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u0435\u0439 \u0432 Dalam World",
+                successText: "\u0421\u043a\u0430\u0447\u0430\u0439\u0442\u0435 \u0438\u0433\u0440\u0443 \u0441 \u043d\u0430\u0448\u0435\u0433\u043e \u0441\u0430\u0439\u0442\u0430 Dalam.World!\n\u0418\u0433\u0440\u0430 \u043f\u043e\u0434\u0434\u0435\u0440\u0436\u0438\u0432\u0430\u0435\u0442\u0441\u044f \u043f\u043e\u0434 Windows, Linux, MacOS",
+                sending: "\u0421\u043e\u0437\u0434\u0430\u043d\u0438\u0435 \u0430\u043a\u043a\u0430\u0443\u043d\u0442\u0430...",
+                controlPanel: "\u041f\u0430\u043d\u0435\u043b\u044c \u0443\u043f\u0440\u0430\u0432\u043b\u0435\u043d\u0438\u044f",
+                forum: "\u0424\u043e\u0440\u0443\u043c",
+                fileHeader: "\u0410\u043a\u043a\u0430\u0443\u043d\u0442 Dalam World\n\n",
+                loginLabel: "\u041b\u043e\u0433\u0438\u043d: ",
+                passwordLabel: "\u041f\u0430\u0440\u043e\u043b\u044c: ",
+                emailLabel: "Email: "
+            },
+            pl: {
+                loginPlaceholder: "Login",
+                passwordPlaceholder: "Has\u0142o",
+                repasswordPlaceholder: "Powt\u00f3rz has\u0142o",
+                emailPlaceholder: "Email",
+                refererPlaceholder: "Kod polecaj\u0105cy",
+                registerButton: "Utw\u00f3rz Dalam ID",
+                genPass: "Wygeneruj has\u0142o",
+                showPass: "Poka\u017c has\u0142o",
+                saveTxt: "Zapisz konto do pliku .txt",
+                pageTitle: "Rejestracja",
+                pageSubtitle: "Tw\u00f3j paszport do Dalam World",
+                loginError: "Login: 6\u201314 znak\u00f3w, dozwolone A-Za-z0-9-",
+                passwordError: "Has\u0142o: musi mie\u0107 6\u201316 znak\u00f3w",
+                repasswordError: "Has\u0142a nie pasuj\u0105",
+                emailError: "Nieprawid\u0142owy format email",
+                loginExists: "Login <b>{value}</b> ju\u017c istnieje.",
+                emailExists: "Email <b>{value}</b> ju\u017c istnieje.",
+                successTitle: "Gratulacje z rejestracji w Dalam World",
+                successText: "Pobierz gr\u0119 z naszej strony Dalam.World!\nGra jest obs\u0142ugiwana na Windows, Linux, MacOS",
+                sending: "Tworzenie konta...",
+                controlPanel: "Panel sterowania",
+                forum: "Forum",
+                fileHeader: "Konto Dalam World\n\n",
+                loginLabel: "Login: ",
+                passwordLabel: "Has\u0142o: ",
+                emailLabel: "Email: "
+            },
+            id: {
+                loginPlaceholder: "Nama Pengguna",
+                passwordPlaceholder: "Kata Sandi",
+                repasswordPlaceholder: "Ulangi Kata Sandi",
+                emailPlaceholder: "Email",
+                refererPlaceholder: "Kode Referal",
+                registerButton: "Buat Dalam ID",
+                genPass: "Buat Kata Sandi",
+                showPass: "Tampilkan kata sandi",
+                saveTxt: "Simpan akun ke file .txt",
+                pageTitle: "Daftar",
+                pageSubtitle: "Paspor Anda ke Dalam World",
+                loginError: "Login: 6\u201314 karakter, hanya A-Za-z0-9-",
+                passwordError: "Kata sandi: panjang harus 6\u201316 karakter",
+                repasswordError: "Kata sandi tidak cocok",
+                emailError: "Format email tidak valid",
+                loginExists: "Login <b>{value}</b> sudah ada.",
+                emailExists: "Email <b>{value}</b> sudah terdaftar.",
+                successTitle: "Selamat! Registrasi berhasil",
+                successText: "Unduh game dari situs kami Dalam.World!\nGame didukung di Windows, Linux, MacOS",
+                sending: "Membuat akun...",
+                controlPanel: "Panel Kontrol",
+                forum: "Forum",
+                fileHeader: "Akun Dalam World\n\n",
+                loginLabel: "Login: ",
+                passwordLabel: "Kata Sandi: ",
+                emailLabel: "Email: "
+            },
+            zh: {
+                loginPlaceholder: "\u7528\u6237\u540d",
+                passwordPlaceholder: "\u5bc6\u7801",
+                repasswordPlaceholder: "\u786e\u8ba4\u5bc6\u7801",
+                emailPlaceholder: "\u7535\u5b50\u90ae\u4ef6",
+                refererPlaceholder: "\u63a8\u8350\u7801",
+                registerButton: "\u521b\u5efa Dalam ID",
+                genPass: "\u751f\u6210\u5bc6\u7801",
+                showPass: "\u663e\u793a\u5bc6\u7801",
+                saveTxt: "\u5c06\u8d26\u53f7\u4fdd\u5b58\u4e3a .txt \u6587\u4ef6",
+                pageTitle: "\u6ce8\u518c",
+                pageSubtitle: "\u901a\u5f80 Dalam World \u7684\u62a4\u7167",
+                loginError: "\u7528\u6237\u540d\uff1a6-14\u4e2a\u5b57\u7b26\uff0c\u4ec5\u5141\u8bb8 A-Za-z0-9-",
+                passwordError: "\u5bc6\u7801\u957f\u5ea6\u5fc5\u987b\u4e3a 6-16 \u4e2a\u5b57\u7b26",
+                repasswordError: "\u4e24\u6b21\u5bc6\u7801\u4e0d\u4e00\u81f4",
+                emailError: "\u90ae\u7bb1\u683c\u5f0f\u4e0d\u6b63\u786e",
+                loginExists: "\u7528\u6237\u540d <b>{value}</b> \u5df2\u5b58\u5728\u3002",
+                emailExists: "\u7535\u5b50\u90ae\u4ef6 <b>{value}</b> \u5df2\u5b58\u5728\u3002",
+                successTitle: "\u606d\u559c\u6ce8\u518c\u6210\u529f\uff01",
+                successText: "\u8bf7\u4ece\u6211\u4eec\u7684\u7f51\u7ad9 Dalam.World \u4e0b\u8f7d\u6e38\u620f\uff01\n\u6e38\u620f\u652f\u6301 Windows\u3001Linux\u3001MacOS",
+                sending: "\u6b63\u5728\u521b\u5efa\u8d26\u53f7...",
+                controlPanel: "\u63a7\u5236\u9762\u677f",
+                forum: "\u8bba\u575b",
+                fileHeader: "Dalam World \u8d26\u6237\n\n",
+                loginLabel: "\u7528\u6237\u540d: ",
+                passwordLabel: "\u5bc6\u7801: ",
+                emailLabel: "\u7535\u5b50\u90ae\u4ef6: "
+            },
+            hi: {
+                loginPlaceholder: "\u0932\u0949\u0917\u093f\u0928",
+                passwordPlaceholder: "\u092a\u093e\u0938\u0935\u0930\u094d\u0921",
+                repasswordPlaceholder: "\u092a\u093e\u0938\u0935\u0930\u094d\u0921 \u0926\u094b\u0939\u0930\u093e\u090f\u0901",
+                emailPlaceholder: "\u0908\u092e\u0947\u0932",
+                refererPlaceholder: "\u0930\u0947\u092b\u0930\u0932 \u0915\u094b\u0921",
+                registerButton: "Dalam ID \u092c\u0928\u093e\u090f\u0902",
+                genPass: "\u092a\u093e\u0938\u0935\u0930\u094d\u0921 \u091c\u0928\u0930\u0947\u091f \u0915\u0930\u0947\u0902",
+                showPass: "\u092a\u093e\u0938\u0935\u0930\u094d\u0921 \u0926\u093f\u0916\u093e\u090f\u0902",
+                saveTxt: "\u0905\u0915\u093e\u0909\u0902\u091f .txt \u092b\u093c\u093e\u0907\u0932 \u092e\u0947\u0902 \u0938\u0939\u0947\u091c\u0947\u0902",
+                pageTitle: "\u0930\u091c\u093f\u0938\u094d\u091f\u094d\u0930\u0947\u0936\u0928",
+                pageSubtitle: "Dalam World \u0915\u093e \u0906\u092a\u0915\u093e \u092a\u093e\u0938\u092a\u094b\u0930\u094d\u091f",
+                loginError: "\u0932\u0949\u0917\u093f\u0928: 6\u201314 \u0905\u0915\u094d\u0937\u0930, \u0915\u0947\u0935\u0932 A-Za-z0-9- \u0905\u0928\u0941\u092e\u0924\u093f\u0924",
+                passwordError: "\u092a\u093e\u0938\u0935\u0930\u094d\u0921: 6\u201316 \u0905\u0915\u094d\u0937\u0930 \u0932\u0902\u092c\u093e \u0939\u094b\u0928\u093e \u091a\u093e\u0939\u093f\u090f",
+                repasswordError: "\u092a\u093e\u0938\u0935\u0930\u094d\u0921 \u092e\u0947\u0932 \u0928\u0939\u0940\u0902 \u0916\u093e\u0924\u0947",
+                emailError: "\u0908\u092e\u0947\u0932 \u0915\u093e \u092b\u0949\u0930\u094d\u092e\u0947\u091f \u0917\u0932\u0924 \u0939\u0948",
+                loginExists: "\u0932\u0949\u0917\u093f\u0928 <b>{value}</b> \u092a\u0939\u0932\u0947 \u0938\u0947 \u092e\u094c\u091c\u0942\u0926 \u0939\u0948\u0964",
+                emailExists: "\u0908\u092e\u0947\u0932 <b>{value}</b> \u092a\u0939\u0932\u0947 \u0938\u0947 \u092e\u094c\u091c\u0942\u0926 \u0939\u0948\u0964",
+                successTitle: "\u092c\u0927\u093e\u0908 \u0939\u094b!",
+                successText: "\u0906\u092a\u0928\u0947 Dalam World \u092e\u0947\u0902 \u0938\u092b\u0932\u0924\u093e\u092a\u0942\u0930\u094d\u0935\u0915 \u0905\u0915\u093e\u0909\u0902\u091f \u0930\u091c\u093f\u0938\u094d\u091f\u0930 \u0915\u0930 \u0932\u093f\u092f\u093e \u0939\u0948\u0964\n\nDalam.World \u0938\u0947 \u0917\u0947\u092e \u0921\u093e\u0929\u0932\u094b\u0921 \u0915\u0930\u0947\u0902!\n\u0917\u0947\u092e Windows, Linux, MacOS \u092a\u0930 \u0938\u092e\u0930\u094d\u0925\u093f\u0924 \u0939\u0948",
+                sending: "\u0905\u0915\u093e\u0909\u0902\u091f \u092c\u0928\u093e\u092f\u093e \u091c\u093e \u0930\u0939\u093e \u0939\u0948...",
+                controlPanel: "\u0915\u0902\u091f\u094d\u0930\u094b\u0932 \u092a\u0948\u0928\u0932",
+                forum: "\u092b\u094b\u0930\u092e",
+                fileHeader: "Dalam World \u0905\u0915\u093e\u0909\u0902\u091f\n\n",
+                loginLabel: "\u0932\u0949\u0917\u093f\u0928: ",
+                passwordLabel: "\u092a\u093e\u0938\u0935\u0930\u094d\u0921: ",
+                emailLabel: "\u0908\u092e\u0947\u0932: "
+            },
+            ja: {
+                loginPlaceholder: "\u30ed\u30b0\u30a4\u30f3",
+                passwordPlaceholder: "\u30d1\u30b9\u30ef\u30fc\u30c9",
+                repasswordPlaceholder: "\u30d1\u30b9\u30ef\u30fc\u30c9\u3092\u518d\u5165\u529b",
+                emailPlaceholder: "\u30e1\u30fc\u30eb\u30a2\u30c9\u30ec\u30b9",
+                refererPlaceholder: "\u7d39\u4ecb\u30b3\u30fc\u30c9",
+                registerButton: "Dalam ID\u3092\u4f5c\u6210",
+                genPass: "\u30d1\u30b9\u30ef\u30fc\u30c9\u751f\u6210",
+                showPass: "\u30d1\u30b9\u30ef\u30fc\u30c9\u3092\u8868\u793a",
+                saveTxt: "\u30a2\u30ab\u30a6\u30f3\u30c8\u3092.txt\u30d5\u30a1\u30a4\u30eb\u306b\u4fdd\u5b58",
+                pageTitle: "\u767b\u9332",
+                pageSubtitle: "Dalam World\u3078\u306e\u30d1\u30b9\u30dd\u30fc\u30c8",
+                loginError: "\u30ed\u30b0\u30a4\u30f3\uff1a6\u201314\u6587\u5b57\u3001A-Za-z0-9-\u306e\u307f\u4f7f\u7528\u53ef\u80fd",
+                passwordError: "\u30d1\u30b9\u30ef\u30fc\u30c9\uff1a6\u201316\u6587\u5b57\u3067\u3042\u308b\u5fc5\u8981\u304c\u3042\u308a\u307e\u3059",
+                repasswordError: "\u30d1\u30b9\u30ef\u30fc\u30c9\u304c\u4e00\u81f4\u3057\u307e\u305b\u3093",
+                emailError: "\u30e1\u30fc\u30eb\u30a2\u30c9\u30ec\u30b9\u306e\u5f62\u5f0f\u304c\u6b63\u3057\u304f\u3042\u308a\u307e\u305b\u3093",
+                loginExists: "\u30ed\u30b0\u30a4\u30f3 <b>{value}</b> \u306f\u65e2\u306b\u5b58\u5728\u3057\u307e\u3059\u3002",
+                emailExists: "\u30e1\u30fc\u30eb <b>{value}</b> \u306f\u65e2\u306b\u5b58\u5728\u3057\u307e\u3059\u3002",
+                successTitle: "\u767b\u9332\u5b8c\u4e86\uff01",
+                successText: "Dalam.World\u304b\u3089\u30b2\u30fc\u30e0\u3092\u30c0\u30a6\u30f3\u30ed\u30fc\u30c9\u3057\u3066\u304f\u3060\u3055\u3044\uff01\n\u5bfe\u5fdcOS: Windows, Linux, MacOS",
+                sending: "\u30a2\u30ab\u30a6\u30f3\u30c8\u4f5c\u6210\u4e2d...",
+                controlPanel: "\u30b3\u30f3\u30c8\u30ed\u30fc\u30eb\u30d1\u30cd\u30eb",
+                forum: "\u30d5\u30a9\u30fc\u30e9\u30e0",
+                fileHeader: "Dalam World \u30a2\u30ab\u30a6\u30f3\u30c8\n\n",
+                loginLabel: "\u30ed\u30b0\u30a4\u30f3: ",
+                passwordLabel: "\u30d1\u30b9\u30ef\u30fc\u30c9: ",
+                emailLabel: "\u30e1\u30fc\u30eb: "
+            },
+            ko: {
+                loginPlaceholder: "\ub85c\uadf8\uc778",
+                passwordPlaceholder: "\ube44\ubc00\ubc88\ud638",
+                repasswordPlaceholder: "\ube44\ubc00\ubc88\ud638 \ud655\uc778",
+                emailPlaceholder: "\uc774\uba54\uc77c",
+                refererPlaceholder: "\ucd94\uc8c4 \ucf54\ub4dc",
+                registerButton: "Dalam ID \ub9cc\ub4e4\uae30",
+                genPass: "\ube44\ubc00\ubc88\ud638 \uc0dd\uc131",
+                showPass: "\ube44\ubc00\ubc88\ud638 \ud45c\uc2dc",
+                saveTxt: "\uacc4\uc815\uc744 .txt \ud30c\uc77c\ub85c \uc800\uc7a5",
+                pageTitle: "\ud68c\uc6d0\uac00\uc785",
+                pageSubtitle: "Dalam World\ub85c \uac00\ub294 \uc5ec\ud648",
+                loginError: "\ub85c\uadf8\uc778: 6\u201314\uc790, A-Za-z0-9-\ub9cc \ud5c8\uc6a9",
+                passwordError: "\ube44\ubc00\ubc88\ud638: 6\u201316\uc790\uc5ec\uc57c \ud569\ub2c8\ub2e4",
+                repasswordError: "\ube44\ubc00\ubc88\ud638\uac00 \uc77c\uce58\ud558\uc9c0 \uc54a\uc2b5\ub2c8\ub2e4",
+                emailError: "\uc774\uba54\uc77c \ud615\uc2dd\uc774 \uc62c\ubc14\ub974\uc9c0 \uc54a\uc2b5\ub2c8\ub2e4",
+                loginExists: "\ub85c\uadf8\uc778 <b>{value}</b>\uc774(\uac00) \uc774\ubbf8 \uc874\uc7ac\ud569\ub2c8\ub2e4.",
+                emailExists: "\uc774\uba54\uc77c <b>{value}</b>\uc774(\uac00) \uc774\ubbf8 \uc874\uc7ac\ud569\ub2c8\ub2e4.",
+                successTitle: "\ucd95\ud558\ud569\ub2c8\ub2e4!",
+                successText: "Dalam.World\uc5d0\uc11c \uac8c\uc784\uc744 \ub2e4\uc6b4\ub85c\ub4dc\ud558\uc138\uc694!\nWindows, Linux, MacOS \uc9c0\uc6d0",
+                sending: "\uacc4\uc815 \uc0dd\uc131 \uc911...",
+                controlPanel: "\uc81c\uc5b4 \ud328\ub110",
+                forum: "\ud3ec\ub7fc",
+                fileHeader: "Dalam World \uacc4\uc815\n\n",
+                loginLabel: "\ub85c\uadf8\uc778: ",
+                passwordLabel: "\ube44\ubc00\ubc88\ud638: ",
+                emailLabel: "\uc774\uba54\uc77c: "
+            },
+            pt: {
+                loginPlaceholder: "Login",
+                passwordPlaceholder: "Senha",
+                repasswordPlaceholder: "Repetir senha",
+                emailPlaceholder: "Email",
+                refererPlaceholder: "C\u00f3digo de indica\u00e7\u00e3o",
+                registerButton: "Criar Dalam ID",
+                genPass: "Gerar senha",
+                showPass: "Mostrar senha",
+                saveTxt: "Salvar conta em arquivo .txt",
+                pageTitle: "Cadastro",
+                pageSubtitle: "Seu passaporte para Dalam World",
+                loginError: "Login: 6\u201314 caracteres, apenas A-Za-z0-9-",
+                passwordError: "Senha: deve ter entre 6 e 16 caracteres",
+                repasswordError: "As senhas n\u00e3o coincidem",
+                emailError: "Formato de email inv\u00e1lido",
+                loginExists: "O login <b>{value}</b> j\u00e1 existe.",
+                emailExists: "O email <b>{value}</b> j\u00e1 est\u00e1 cadastrado.",
+                successTitle: "Parab\u00e9ns!",
+                successText: "Baixe o jogo em nosso site Dalam.World!\nSuportado em Windows, Linux, MacOS",
+                sending: "Criando conta...",
+                controlPanel: "Painel de Controle",
+                forum: "F\u00f3rum",
+                fileHeader: "Conta Dalam World\n\n",
+                loginLabel: "Login: ",
+                passwordLabel: "Senha: ",
+                emailLabel: "Email: "
+            },
+            fr: {
+                loginPlaceholder: "Identifiant",
+                passwordPlaceholder: "Mot de passe",
+                repasswordPlaceholder: "R\u00e9p\u00e9ter le mot de passe",
+                emailPlaceholder: "Email",
+                refererPlaceholder: "Code de parrainage",
+                registerButton: "Cr\u00e9er Dalam ID",
+                genPass: "G\u00e9n\u00e9rer un mot de passe",
+                showPass: "Afficher le mot de passe",
+                saveTxt: "Sauvegarder le compte en .txt",
+                pageTitle: "Inscription",
+                pageSubtitle: "Votre passeport pour Dalam World",
+                loginError: "Identifiant : 6\u201314 caract\u00e8res, seulement A-Za-z0-9-",
+                passwordError: "Mot de passe : doit contenir 6\u201316 caract\u00e8res",
+                repasswordError: "Les mots de passe ne correspondent pas",
+                emailError: "Format d\u2019email invalide",
+                loginExists: "L\u2019identifiant <b>{value}</b> existe d\u00e9j\u00e0.",
+                emailExists: "L\u2019email <b>{value}</b> existe d\u00e9j\u00e0.",
+                successTitle: "F\u00e9licitations !",
+                successText: "T\u00e9l\u00e9chargez le jeu sur notre site Dalam.World !\nCompatible Windows, Linux, MacOS",
+                sending: "Cr\u00e9ation du compte...",
+                controlPanel: "Panneau de contr\u00f4le",
+                forum: "Forum",
+                fileHeader: "Compte Dalam World\n\n",
+                loginLabel: "Identifiant : ",
+                passwordLabel: "Mot de passe : ",
+                emailLabel: "Email : "
+            },
+            vi: {
+                loginPlaceholder: "T\u00ean \u0111\u0103ng nh\u1eadp",
+                passwordPlaceholder: "M\u1eadt kh\u1ea9u",
+                repasswordPlaceholder: "Nh\u1eadp l\u1ea1i m\u1eadt kh\u1ea9u",
+                emailPlaceholder: "Email",
+                refererPlaceholder: "M\u00e3 gi\u1edbi thi\u1ec7u",
+                registerButton: "T\u1ea1o Dalam ID",
+                genPass: "T\u1ea1o m\u1eadt kh\u1ea9u",
+                showPass: "Hi\u1ec7n m\u1eadt kh\u1ea9u",
+                saveTxt: "L\u01b0u t\u00e0i kho\u1ea3n v\u00e0o file .txt",
+                pageTitle: "\u0110\u0103ng k\u00fd",
+                pageSubtitle: "H\u1ed9 chi\u1ebfu c\u1ee7a b\u1ea1n \u0111\u1ebfn Dalam World",
+                loginError: "T\u00ean \u0111\u0103ng nh\u1eadp: 6\u201314 k\u00fd t\u1ef1, ch\u1ec9 A-Za-z0-9-",
+                passwordError: "M\u1eadt kh\u1ea9u: ph\u1ea3i d\u00e0i 6\u201316 k\u00fd t\u1ef1",
+                repasswordError: "M\u1eadt kh\u1ea9u kh\u00f4ng kh\u1edbp",
+                emailError: "\u0110\u1ecbnh d\u1ea1ng email kh\u00f4ng h\u1ee3p l\u1ec7",
+                loginExists: "T\u00ean \u0111\u0103ng nh\u1eadp <b>{value}</b> \u0111\u00e3 t\u1ed3n t\u1ea1i.",
+                emailExists: "Email <b>{value}</b> \u0111\u00e3 t\u1ed3n t\u1ea1i.",
+                successTitle: "Ch\u00fac m\u1eebng!",
+                successText: "T\u1ea3i game t\u1eeb trang web c\u1ee7a ch\u00fang t\u00f4i Dalam.World!\nH\u1ed7 tr\u1ee3 Windows, Linux, MacOS",
+                sending: "\u0110ang t\u1ea1o t\u00e0i kho\u1ea3n...",
+                controlPanel: "B\u1ea3ng \u0111i\u1ec1u khi\u1ec3n",
+                forum: "Di\u1ec5n \u0111\u00e0n",
+                fileHeader: "T\u00e0i kho\u1ea3n Dalam World\n\n",
+                loginLabel: "T\u00ean \u0111\u0103ng nh\u1eadp: ",
+                passwordLabel: "M\u1eadt kh\u1ea9u: ",
+                emailLabel: "Email: "
+            },
+            de: {
+                loginPlaceholder: "Benutzername",
+                passwordPlaceholder: "Passwort",
+                repasswordPlaceholder: "Passwort wiederholen",
+                emailPlaceholder: "E-Mail",
+                refererPlaceholder: "Referenzcode",
+                registerButton: "Dalam ID erstellen",
+                genPass: "Passwort generieren",
+                showPass: "Passwort anzeigen",
+                saveTxt: "Konto als .txt speichern",
+                pageTitle: "Registrierung",
+                pageSubtitle: "Ihr Reisepass f\u00fcr Dalam World",
+                loginError: "Benutzername: 6\u201314 Zeichen, nur A-Za-z0-9- erlaubt",
+                passwordError: "Passwort: muss 6\u201316 Zeichen lang sein",
+                repasswordError: "Passw\u00f6rter stimmen nicht \u00fcberein",
+                emailError: "Ung\u00fcltiges E-Mail-Format",
+                loginExists: "Benutzername <b>{value}</b> existiert bereits.",
+                emailExists: "E-Mail <b>{value}</b> existiert bereits.",
+                successTitle: "Herzlichen Gl\u00fcckwunsch!",
+                successText: "Laden Sie das Spiel von Dalam.World herunter!\nUnterst\u00fctzt auf Windows, Linux, MacOS",
+                sending: "Konto wird erstellt...",
+                controlPanel: "Kontrollpanel",
+                forum: "Forum",
+                fileHeader: "Dalam World Konto\n\n",
+                loginLabel: "Benutzername: ",
+                passwordLabel: "Passwort: ",
+                emailLabel: "E-Mail: "
+            },
+            es: {
+                loginPlaceholder: "Usuario",
+                passwordPlaceholder: "Contrase\u00f1a",
+                repasswordPlaceholder: "Repetir contrase\u00f1a",
+                emailPlaceholder: "Correo electr\u00f3nico",
+                refererPlaceholder: "C\u00f3digo de referido",
+                registerButton: "Crear Dalam ID",
+                genPass: "Generar contrase\u00f1a",
+                showPass: "Mostrar contrase\u00f1a",
+                saveTxt: "Guardar cuenta en archivo .txt",
+                pageTitle: "Registro",
+                pageSubtitle: "Tu pasaporte a Dalam World",
+                loginError: "Usuario: 6\u201314 caracteres, solo A-Za-z0-9-",
+                passwordError: "Contrase\u00f1a: debe tener 6\u201316 caracteres",
+                repasswordError: "Las contrase\u00f1as no coinciden",
+                emailError: "Formato de email inv\u00e1lido",
+                loginExists: "El usuario <b>{value}</b> ya existe.",
+                emailExists: "El email <b>{value}</b> ya existe.",
+                successTitle: "\u00a1Felicidades!",
+                successText: "\u00a1Descarga el juego desde Dalam.World!\nCompatible con Windows, Linux, MacOS",
+                sending: "Creando cuenta...",
+                controlPanel: "Panel de Control",
+                forum: "Foro",
+                fileHeader: "Cuenta Dalam World\n\n",
+                loginLabel: "Usuario: ",
+                passwordLabel: "Contrase\u00f1a: ",
+                emailLabel: "Email: "
+            },
+            hu: {
+                loginPlaceholder: "Felhaszn\u00e1l\u00f3n\u00e9v",
+                passwordPlaceholder: "Jelsz\u00f3",
+                repasswordPlaceholder: "Jelsz\u00f3 ism\u00e9t",
+                emailPlaceholder: "E-mail",
+                refererPlaceholder: "Aj\u00e1nl\u00f3i k\u00f3d",
+                registerButton: "Dalam ID l\u00e9trehoz\u00e1sa",
+                genPass: "Jelsz\u00f3 gener\u00e1l\u00e1sa",
+                showPass: "Jelsz\u00f3 megmutat\u00e1sa",
+                saveTxt: "Fi\u00f3k ment\u00e9se .txt f\u00e1jlba",
+                pageTitle: "Regisztr\u00e1ci\u00f3",
+                pageSubtitle: "Az \u00fatlevel Dalam World-be",
+                loginError: "Felhaszn\u00e1l\u00f3n\u00e9v: 6\u201314 karakter, csak A-Za-z0-9-",
+                passwordError: "Jelsz\u00f3: 6\u201316 karakter hossz\u00fa",
+                repasswordError: "A jelszavak nem egyeznek",
+                emailError: "\u00c9rv\u00e9nytelen e-mail form\u00e1tum",
+                loginExists: "A felhaszn\u00e1l\u00f3n\u00e9v <b>{value}</b> m\u00e1r l\u00e9tezik.",
+                emailExists: "Az e-mail <b>{value}</b> m\u00e1r l\u00e9tezik.",
+                successTitle: "Gratul\u00e1lunk!",
+                successText: "T\u00f6ltsd le a j\u00e1t\u00e9kot a Dalam.World-r\u00f3l!\nT\u00e1mogatott: Windows, Linux, MacOS",
+                sending: "Fi\u00f3k l\u00e9trehoz\u00e1sa...",
+                controlPanel: "Vez\u00e9rl\u0151pult",
+                forum: "F\u00f3rum",
+                fileHeader: "Dalam World fi\u00f3k\n\n",
+                loginLabel: "Felhaszn\u00e1l\u00f3n\u00e9v: ",
+                passwordLabel: "Jelsz\u00f3: ",
+                emailLabel: "E-mail: "
+            },
+            uz: {
+                loginPlaceholder: "Login",
+                passwordPlaceholder: "Parol",
+                repasswordPlaceholder: "Parolni takrorlang",
+                emailPlaceholder: "Email",
+                refererPlaceholder: "Referal kodi",
+                registerButton: "Dalam ID yaratish",
+                genPass: "Parol yaratish",
+                showPass: "Parolni ko'rsatish",
+                saveTxt: "Hisobni .txt faylga saqlash",
+                pageTitle: "Ro\u2018yxatdan o\u2018tish",
+                pageSubtitle: "Dalam World ga passportingiz",
+                loginError: "Login: 6\u201314 belgi, faqat A-Za-z0-9-",
+                passwordError: "Parol: 6\u201316 belgi uzunlikda",
+                repasswordError: "Parollar mos kelmayapti",
+                emailError: "Email formati noto\u2018g\u2018ri",
+                loginExists: "Login <b>{value}</b> allaqachon mavjud.",
+                emailExists: "Email <b>{value}</b> allaqachon mavjud.",
+                successTitle: "Tabriklaymiz!",
+                successText: "O\u2018yinni Dalam.World saytidan yuklab oling!\nWindows, Linux, MacOS qo\u2018llab-quvvatlanadi",
+                sending: "Hisob yaratilmoqda...",
+                controlPanel: "Boshqaruv paneli",
+                forum: "Forum",
+                fileHeader: "Dalam World hisobi\n\n",
+                loginLabel: "Login: ",
+                passwordLabel: "Parol: ",
+                emailLabel: "Email: "
+            },
+            mn: {
+                loginPlaceholder: "\u041d\u044d\u0432\u0442\u0440\u044d\u0445 \u043d\u044d\u0440",
+                passwordPlaceholder: "\u041d\u0443\u0443\u0446 \u04af\u0433",
+                repasswordPlaceholder: "\u041d\u0443\u0443\u0446 \u04af\u0433 \u0434\u0430\u0432\u0442\u0430\u0445",
+                emailPlaceholder: "\u0418\u043c\u044d\u0439\u043b",
+                refererPlaceholder: "\u0420\u0435\u0444\u0435\u0440\u0430\u043b \u043a\u043e\u0434",
+                registerButton: "Dalam ID \u04af\u04af\u0441\u0433\u044d\u0445",
+                genPass: "\u041d\u0443\u0443\u0446 \u04af\u0433 \u04af\u04af\u0441\u0433\u044d\u0445",
+                showPass: "\u041d\u0443\u0443\u0446 \u04af\u0433\u0438\u0439\u0433 \u0445\u0430\u0440\u0443\u0443\u043b\u0430\u0445",
+                saveTxt: "\u0411\u04af\u0440\u0442\u0433\u044d\u043b\u0438\u0439\u0433 .txt \u0444\u0430\u0439\u043b\u0434 \u0445\u0430\u0434\u0433\u0430\u043b\u0430\u0445",
+                pageTitle: "\u0411\u04af\u0440\u0442\u0433\u044d\u043b",
+                pageSubtitle: "Dalam World \u0440\u0443\u0443 \u043f\u0430\u0441\u043f\u043e\u0440\u0442",
+                loginError: "\u041d\u044d\u0432\u0442\u0440\u044d\u0445 \u043d\u044d\u0440: 6\u201314 \u0442\u044d\u043c\u0434\u044d\u0433\u0442, A-Za-z0-9-",
+                passwordError: "\u041d\u0443\u0443\u0446 \u04af\u0433: 6\u201316 \u0442\u044d\u043c\u0434\u044d\u0433\u0442",
+                repasswordError: "\u041d\u0443\u0443\u0446 \u04af\u0433 \u0442\u0430\u0430\u0440\u0430\u0445\u0433\u04af\u0439",
+                emailError: "\u0418\u043c\u044d\u0439\u043b \u0444\u043e\u0440\u043c\u0430\u0442 \u0431\u0443\u0440\u0443\u0443",
+                loginExists: "\u041d\u044d\u0432\u0442\u0440\u044d\u0445 \u043d\u044d\u0440 <b>{value}</b> \u0430\u043b\u044c \u0445\u044d\u0434\u0438\u0439\u043d \u0431\u04af\u0440\u0442\u0433\u044d\u0433\u0434\u0441\u044d\u043d.",
+                emailExists: "\u0418\u043c\u044d\u0439\u043b <b>{value}</b> \u0430\u043b\u044c \u0445\u044d\u0434\u0438\u0439\u043d \u0431\u04af\u0440\u0442\u0433\u044d\u0433\u0434\u0441\u044d\u043d.",
+                successTitle: "\u0411\u0430\u044f\u0440 \u0445\u04af\u0440\u0433\u044d\u044d!",
+                successText: "Dalam.World \u0441\u0430\u0439\u0442\u0430\u0430\u0441 \u0442\u043e\u0433\u043b\u043e\u043e\u043c\u044b\u0433 \u0442\u0430\u0442\u0436 \u0430\u0432\u043d\u0430 \u0443\u0443!\nWindows, Linux, MacOS \u0434\u044d\u043c\u0436\u0438\u0433\u0434\u044d\u043d\u044d",
+                sending: "\u0411\u04af\u0440\u0442\u0433\u044d\u043b \u04af\u04af\u0441\u0433\u044d\u0436 \u0431\u0430\u0439\u043d\u0430...",
+                controlPanel: "\u0423\u0434\u0438\u0440\u0434\u043b\u0430\u0433\u0438\u0439\u043d \u043f\u0430\u043d\u0435\u043b\u044c",
+                forum: "\u0424\u043e\u0440\u0443\u043c",
+                fileHeader: "Dalam World \u0431\u04af\u0440\u0442\u0433\u044d\u043b\n\n",
+                loginLabel: "\u041d\u044d\u0432\u0442\u0440\u044d\u0445 \u043d\u044d\u0440: ",
+                passwordLabel: "\u041d\u0443\u0443\u0446 \u04af\u0433: ",
+                emailLabel: "\u0418\u043c\u044d\u0439\u043b: "
+            },
+            uk: {
+                loginPlaceholder: "\u041b\u043e\u0433\u0456\u043d",
+                passwordPlaceholder: "\u041f\u0430\u0440\u043e\u043b\u044c",
+                repasswordPlaceholder: "\u041f\u043e\u0432\u0442\u043e\u0440\u0438\u0442\u0438 \u043f\u0430\u0440\u043e\u043b\u044c",
+                emailPlaceholder: "Email",
+                refererPlaceholder: "\u0420\u0435\u0444\u0435\u0440\u0430\u043b\u044c\u043d\u0438\u0439 \u043a\u043e\u0434",
+                registerButton: "\u0421\u0442\u0432\u043e\u0440\u0438\u0442\u0438 Dalam ID",
+                genPass: "\u0417\u0433\u0435\u043d\u0435\u0440\u0443\u0432\u0430\u0442\u0438 \u043f\u0430\u0440\u043e\u043b\u044c",
+                showPass: "\u041f\u043e\u043a\u0430\u0437\u0430\u0442\u0438 \u043f\u0430\u0440\u043e\u043b\u044c",
+                saveTxt: "\u0417\u0431\u0435\u0440\u0435\u0433\u0442\u0438 \u0430\u043a\u0430\u0443\u043d\u0442 \u0443 .txt \u0444\u0430\u0439\u043b",
+                pageTitle: "\u0420\u0435\u0454\u0441\u0442\u0440\u0430\u0446\u0456\u044f",
+                pageSubtitle: "\u0412\u0430\u0448 \u043f\u0430\u0441\u043f\u043e\u0440\u0442 \u0434\u043e Dalam World",
+                loginError: "\u041b\u043e\u0433\u0456\u043d: 6\u201314 \u0441\u0438\u043c\u0432\u043e\u043b\u0456\u0432, A-Za-z0-9-",
+                passwordError: "\u041f\u0430\u0440\u043e\u043b\u044c: 6\u201316 \u0441\u0438\u043c\u0432\u043e\u043b\u0456\u0432",
+                repasswordError: "\u041f\u0430\u0440\u043e\u043b\u0456 \u043d\u0435 \u0441\u043f\u0456\u0432\u043f\u0430\u0434\u0430\u044e\u0442\u044c",
+                emailError: "\u041d\u0435\u0432\u0456\u0440\u043d\u0438\u0439 \u0444\u043e\u0440\u043c\u0430\u0442 email",
+                loginExists: "\u041b\u043e\u0433\u0456\u043d <b>{value}</b> \u0432\u0436\u0435 \u0456\u0441\u043d\u0443\u0454.",
+                emailExists: "Email <b>{value}</b> \u0432\u0436\u0435 \u0456\u0441\u043d\u0443\u0454.",
+                successTitle: "\u0412\u0456\u0442\u0430\u0454\u043c\u043e!",
+                successText: "\u0417\u0430\u0432\u0430\u043d\u0442\u0430\u0436\u0442\u0435 \u0433\u0440\u0443 \u0437 Dalam.World!\n\u041f\u0456\u0434\u0442\u0440\u0438\u043c\u0443\u0454\u0442\u044c\u0441\u044f Windows, Linux, MacOS",
+                sending: "\u0421\u0442\u0432\u043e\u0440\u0435\u043d\u043d\u044f \u0430\u043a\u0430\u0443\u043d\u0442\u0430...",
+                controlPanel: "\u041f\u0430\u043d\u0435\u043b\u044c \u043a\u0435\u0440\u0443\u0432\u0430\u043d\u043d\u044f",
+                forum: "\u0424\u043e\u0440\u0443\u043c",
+                fileHeader: "\u0410\u043a\u0430\u0443\u043d\u0442 Dalam World\n\n",
+                loginLabel: "\u041b\u043e\u0433\u0456\u043d: ",
+                passwordLabel: "\u041f\u0430\u0440\u043e\u043b\u044c: ",
+                emailLabel: "Email: "
+            },
+            el: {
+                loginPlaceholder: "\u038c\u03bd\u03bf\u03bc\u03b1 \u03c7\u03c1\u03ae\u03c3\u03c4\u03b7",
+                passwordPlaceholder: "\u039a\u03c9\u03b4\u03b9\u03ba\u03cc\u03c2 \u03c0\u03c1\u03cc\u03c3\u03b2\u03b1\u03c3\u03b7\u03c2",
+                repasswordPlaceholder: "\u0395\u03c0\u03b1\u03bd\u03ac\u03bb\u03b7\u03c8\u03b7 \u03ba\u03c9\u03b4\u03b9\u03ba\u03bf\u03cd",
+                emailPlaceholder: "Email",
+                refererPlaceholder: "\u039a\u03c9\u03b4\u03b9\u03ba\u03cc\u03c2 \u03c0\u03b1\u03c1\u03b1\u03c0\u03bf\u03bc\u03c0\u03ae\u03c2",
+                registerButton: "\u0394\u03b7\u03bc\u03b9\u03bf\u03c5\u03c1\u03b3\u03af\u03b1 Dalam ID",
+                genPass: "\u0394\u03b7\u03bc\u03b9\u03bf\u03c5\u03c1\u03b3\u03af\u03b1 \u03ba\u03c9\u03b4\u03b9\u03ba\u03bf\u03cd",
+                showPass: "\u0395\u03bc\u03c6\u03ac\u03bd\u03b9\u03c3\u03b7 \u03ba\u03c9\u03b4\u03b9\u03ba\u03bf\u03cd",
+                saveTxt: "\u0391\u03c0\u03bf\u03b8\u03ae\u03ba\u03b5\u03c5\u03c3\u03b7 \u03bb\u03bf\u03b3\u03b1\u03c1\u03b9\u03b1\u03c3\u03bc\u03bf\u03cd \u03c9\u03c2 .txt",
+                pageTitle: "\u0395\u03b3\u03b3\u03c1\u03b1\u03c6\u03ae",
+                pageSubtitle: "\u03a4\u03bf \u03b4\u03b9\u03b1\u03b2\u03ac\u03c4\u03b9\u03bf \u03c3\u03b1\u03c2 \u03b3\u03b9\u03b1 \u03c4\u03bf Dalam World",
+                loginError: "\u039b\u03bf\u03b3\u03b9\u03bd: 6\u201314 \u03c7\u03b1\u03c1\u03b1\u03ba\u03c4\u03ae\u03c1\u03b5\u03c2, A-Za-z0-9-",
+                passwordError: "\u039f \u03ba\u03c9\u03b4\u03b9\u03ba\u03cc\u03c2 \u03c0\u03c1\u03ad\u03c0\u03b5\u03b9 \u03bd\u03b1 \u03ad\u03c7\u03b5\u03b9 6\u201316 \u03c7\u03b1\u03c1\u03b1\u03ba\u03c4\u03ae\u03c1\u03b5\u03c2",
+                repasswordError: "\u039f\u03b9 \u03ba\u03c9\u03b4\u03b9\u03ba\u03bf\u03af \u03b4\u03b5\u03bd \u03c4\u03b1\u03b9\u03c1\u03b9\u03ac\u03b6\u03bf\u03c5\u03bd",
+                emailError: "\u039c\u03b7 \u03ad\u03b3\u03ba\u03c5\u03c1\u03b7 \u03bc\u03bf\u03c1\u03c6\u03ae email",
+                loginExists: "\u03a4\u03bf login <b>{value}</b> \u03c5\u03c0\u03ac\u03c1\u03c7\u03b5\u03b9 \u03ae\u03b4\u03b7.",
+                emailExists: "\u03a4\u03bf email <b>{value}</b> \u03c5\u03c0\u03ac\u03c1\u03c7\u03b5\u03b9 \u03ae\u03b4\u03b7.",
+                successTitle: "\u03a3\u03c5\u03b3\u03c7\u03b1\u03c1\u03b7\u03c4\u03ae\u03c1\u03b9\u03b1!",
+                successText: "\u039a\u03b1\u03c4\u03b5\u03b2\u03ac\u03c3\u03c4\u03b5 \u03c4\u03bf \u03c0\u03b1\u03b9\u03c7\u03bd\u03af\u03b4\u03b9 \u03b1\u03c0\u03cc Dalam.World!\n\u03a5\u03c0\u03bf\u03c3\u03c4\u03b7\u03c1\u03af\u03b6\u03b5\u03c4\u03b1\u03b9 \u03c3\u03b5 Windows, Linux, MacOS",
+                sending: "\u0394\u03b7\u03bc\u03b9\u03bf\u03c5\u03c1\u03b3\u03af\u03b1 \u03bb\u03bf\u03b3\u03b1\u03c1\u03b9\u03b1\u03c3\u03bc\u03bf\u03cd...",
+                controlPanel: "\u03a0\u03af\u03bd\u03b1\u03ba\u03b1\u03c2 \u03b5\u03bb\u03ad\u03b3\u03c7\u03bf\u03c5",
+                forum: "\u03a6\u03cc\u03c1\u03bf\u03c5\u03bc",
+                fileHeader: "\u039b\u03bf\u03b3\u03b1\u03c1\u03b9\u03b1\u03c3\u03bc\u03cc\u03c2 Dalam World\n\n",
+                loginLabel: "\u039b\u03bf\u03b3\u03b9\u03bd: ",
+                passwordLabel: "\u039a\u03c9\u03b4\u03b9\u03ba\u03cc\u03c2: ",
+                emailLabel: "Email: "
+            },
+            tr: {
+                loginPlaceholder: "Kullan\u0131c\u0131 Ad\u0131",
+                passwordPlaceholder: "\u015eifre",
+                repasswordPlaceholder: "\u015eifreyi Tekrarla",
+                emailPlaceholder: "E-posta",
+                refererPlaceholder: "Referans Kodu",
+                registerButton: "Dalam ID Olu\u015ftur",
+                genPass: "\u015eifre Olu\u015ftur",
+                showPass: "\u015eifreyi g\u00f6ster",
+                saveTxt: "Hesab\u0131 .txt olarak kaydet",
+                pageTitle: "Kay\u0131t",
+                pageSubtitle: "Dalam World'e giri\u015f pasaportunuz",
+                loginError: "Login: 6\u201314 karakter, sadece A-Za-z0-9-",
+                passwordError: "\u015eifre: 6\u201316 karakter olmal\u0131d\u0131r",
+                repasswordError: "\u015eifreler e\u015fle\u015fmiyor",
+                emailError: "Ge\u00e7ersiz e-posta format\u0131",
+                loginExists: "Login <b>{value}</b> zaten mevcut.",
+                emailExists: "E-posta <b>{value}</b> zaten mevcut.",
+                successTitle: "Tebrikler!",
+                successText: "Oyunu Dalam.World'den indirin!\nWindows, Linux, MacOS desteklenir",
+                sending: "Hesap olu\u015fturuluyor...",
+                controlPanel: "Kontrol Paneli",
+                forum: "Forum",
+                fileHeader: "Dalam World Hesab\u0131\n\n",
+                loginLabel: "Login: ",
+                passwordLabel: "\u015eifre: ",
+                emailLabel: "E-posta: "
+            },
+            it: {
+                loginPlaceholder: "Nome utente",
+                passwordPlaceholder: "Password",
+                repasswordPlaceholder: "Ripeti password",
+                emailPlaceholder: "Email",
+                refererPlaceholder: "Codice di referral",
+                registerButton: "Crea Dalam ID",
+                genPass: "Genera password",
+                showPass: "Mostra password",
+                saveTxt: "Salva account in file .txt",
+                pageTitle: "Registrazione",
+                pageSubtitle: "Il tuo passaporto per Dalam World",
+                loginError: "Login: 6\u201314 caratteri, solo A-Za-z0-9-",
+                passwordError: "Password: deve essere lunga 6\u201316 caratteri",
+                repasswordError: "Le password non coincidono",
+                emailError: "Formato email non valido",
+                loginExists: "Il login <b>{value}</b> esiste gi\u00e0.",
+                emailExists: "L\u2019email <b>{value}</b> esiste gi\u00e0.",
+                successTitle: "Congratulazioni!",
+                successText: "Scarica il gioco da Dalam.World!\nSupportato su Windows, Linux, MacOS",
+                sending: "Creazione account...",
+                controlPanel: "Pannello di Controllo",
+                forum: "Forum",
+                fileHeader: "Account Dalam World\n\n",
+                loginLabel: "Login: ",
+                passwordLabel: "Password: ",
+                emailLabel: "Email: "
+            },
+            th: {
+                loginPlaceholder: "\u0e0a\u0e37\u0e48\u0e2d\u0e1c\u0e39\u0e49\u0e43\u0e0a\u0e49",
+                passwordPlaceholder: "\u0e23\u0e2b\u0e31\u0e2a\u0e1c\u0e48\u0e32\u0e19",
+                repasswordPlaceholder: "\u0e22\u0e37\u0e19\u0e22\u0e31\u0e19\u0e23\u0e2b\u0e31\u0e2a\u0e1c\u0e48\u0e32\u0e19",
+                emailPlaceholder: "\u0e2d\u0e35\u0e40\u0e21\u0e25",
+                refererPlaceholder: "\u0e23\u0e2b\u0e31\u0e2a\u0e41\u0e19\u0e30\u0e19\u0e33",
+                registerButton: "\u0e2a\u0e23\u0e49\u0e32\u0e07 Dalam ID",
+                genPass: "\u0e2a\u0e23\u0e49\u0e32\u0e07\u0e23\u0e2b\u0e31\u0e2a\u0e1c\u0e48\u0e32\u0e19",
+                showPass: "\u0e41\u0e2a\u0e14\u0e07\u0e23\u0e2b\u0e31\u0e2a\u0e1c\u0e48\u0e32\u0e19",
+                saveTxt: "\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u0e1a\u0e31\u0e0d\u0e0a\u0e35\u0e40\u0e1b\u0e47\u0e19 .txt",
+                pageTitle: "\u0e25\u0e07\u0e17\u0e30\u0e40\u0e1a\u0e35\u0e22\u0e19",
+                pageSubtitle: "\u0e2b\u0e19\u0e31\u0e07\u0e2a\u0e37\u0e48\u0e2d\u0e02\u0e2d\u0e07\u0e04\u0e38\u0e13\u0e2a\u0e39\u0e48 Dalam World",
+                loginError: "\u0e25\u0e2d\u0e01\u0e2d\u0e34\u0e19: 6\u201314 \u0e15\u0e31\u0e27\u0e2d\u0e31\u0e01\u0e29\u0e23, A-Za-z0-9-",
+                passwordError: "\u0e23\u0e2b\u0e31\u0e2a\u0e1c\u0e48\u0e32\u0e19: 6\u201316 \u0e15\u0e31\u0e27\u0e2d\u0e31\u0e01\u0e29\u0e23",
+                repasswordError: "\u0e23\u0e2b\u0e31\u0e2a\u0e1c\u0e48\u0e32\u0e19\u0e44\u0e21\u0e48\u0e15\u0e23\u0e07\u0e01\u0e31\u0e19",
+                emailError: "\u0e23\u0e39\u0e1b\u0e41\u0e1a\u0e1a\u0e2d\u0e35\u0e40\u0e21\u0e25\u0e44\u0e21\u0e48\u0e16\u0e39\u0e01\u0e15\u0e49\u0e2d\u0e07",
+                loginExists: "\u0e25\u0e2d\u0e01\u0e2d\u0e34\u0e19 <b>{value}</b> \u0e21\u0e35\u0e41\u0e25\u0e49\u0e27",
+                emailExists: "\u0e2d\u0e35\u0e40\u0e21\u0e25 <b>{value}</b> \u0e21\u0e35\u0e41\u0e25\u0e49\u0e27",
+                successTitle: "\u0e22\u0e34\u0e19\u0e14\u0e35\u0e14\u0e49\u0e27\u0e22!",
+                successText: "\u0e14\u0e32\u0e27\u0e19\u0e4c\u0e42\u0e2b\u0e25\u0e14\u0e40\u0e01\u0e21\u0e08\u0e32\u0e01 Dalam.World!\n\u0e23\u0e2d\u0e07\u0e23\u0e31\u0e1a Windows, Linux, MacOS",
+                sending: "\u0e01\u0e33\u0e25\u0e31\u0e07\u0e2a\u0e23\u0e49\u0e32\u0e07\u0e1a\u0e31\u0e0d\u0e0a\u0e35...",
+                controlPanel: "\u0e2b\u0e19\u0e49\u0e32\u0e01\u0e23\u0e30\u0e14\u0e32\u0e19",
+                forum: "\u0e1f\u0e2d\u0e23\u0e31\u0e21",
+                fileHeader: "\u0e1a\u0e31\u0e0d\u0e0a\u0e35 Dalam World\n\n",
+                loginLabel: "\u0e25\u0e2d\u0e01\u0e2d\u0e34\u0e19: ",
+                passwordLabel: "\u0e23\u0e2b\u0e31\u0e2a\u0e1c\u0e48\u0e32\u0e19: ",
+                emailLabel: "\u0e2d\u0e35\u0e40\u0e21\u0e25: "
+            },
+            ar: {
+                loginPlaceholder: "\u0627\u0633\u0645 \u0627\u0644\u0645\u0633\u062a\u062e\u062f\u0645",
+                passwordPlaceholder: "\u0643\u0644\u0645\u0629 \u0627\u0644\u0645\u0631\u0648\u0631",
+                repasswordPlaceholder: "\u062a\u0623\u0643\u064a\u062f \u0643\u0644\u0645\u0629 \u0627\u0644\u0645\u0631\u0648\u0631",
+                emailPlaceholder: "\u0627\u0644\u0628\u0631\u064a\u062f \u0627\u0644\u0625\u0644\u0643\u062a\u0631\u0648\u0646\u064a",
+                refererPlaceholder: "\u0643\u0648\u062f \u0627\u0644\u0625\u062d\u0627\u0644\u0629",
+                registerButton: "\u0625\u0646\u0634\u0627\u0621 Dalam ID",
+                genPass: "\u0625\u0646\u0634\u0627\u0621 \u0643\u0644\u0645\u0629 \u0645\u0631\u0648\u0631",
+                showPass: "\u0625\u0638\u0647\u0627\u0631 \u0643\u0644\u0645\u0629 \u0627\u0644\u0645\u0631\u0648\u0631",
+                saveTxt: "\u062d\u0641\u0638 \u0627\u0644\u062d\u0633\u0627\u0628 \u0641\u064a \u0645\u0644\u0641 .txt",
+                pageTitle: "\u0627\u0644\u062a\u0633\u062c\u064a\u0644",
+                pageSubtitle: "\u062c\u0648\u0627\u0632 \u0633\u0641\u0631\u0643 \u0625\u0644\u0649 Dalam World",
+                loginError: "\u0627\u0644\u0627\u0633\u0645: 6\u201314 \u062d\u0631\u0641\u0627\u064b\u060c A-Za-z0-9- \u0641\u0642\u0637",
+                passwordError: "\u0643\u0644\u0645\u0629 \u0627\u0644\u0645\u0631\u0648\u0631: 6\u201316 \u062d\u0631\u0641\u0627\u064b",
+                repasswordError: "\u0643\u0644\u0645\u0627\u062a \u0627\u0644\u0645\u0631\u0648\u0631 \u063a\u064a\u0631 \u0645\u062a\u0637\u0627\u0628\u0642\u0629",
+                emailError: "\u062a\u0646\u0633\u064a\u0642 \u0627\u0644\u0628\u0631\u064a\u062f \u063a\u064a\u0631 \u0635\u0627\u0644\u062d",
+                loginExists: "\u0627\u0644\u0627\u0633\u0645 <b>{value}</b> \u0645\u0648\u062c\u0648\u062f \u0628\u0627\u0644\u0641\u0639\u0644.",
+                emailExists: "\u0627\u0644\u0628\u0631\u064a\u062f <b>{value}</b> \u0645\u0648\u062c\u0648\u062f \u0628\u0627\u0644\u0641\u0639\u0644.",
+                successTitle: "\u062a\u0647\u0627\u0646\u064a\u0646\u0627!",
+                successText: "\u0642\u0645 \u0628\u062a\u0646\u0632\u064a\u0644 \u0627\u0644\u0644\u0639\u0628\u0629 \u0645\u0646 Dalam.World!\n\u0645\u062f\u0639\u0648\u0645\u0629 \u0639\u0644\u0649 Windows\u060c Linux\u060c MacOS",
+                sending: "\u062c\u0627\u0631\u064a \u0625\u0646\u0634\u0627\u0621 \u0627\u0644\u062d\u0633\u0627\u0628...",
+                controlPanel: "\u0644\u0648\u062d\u0629 \u0627\u0644\u062a\u062d\u0643\u0645",
+                forum: "\u0627\u0644\u0645\u0646\u062a\u062f\u0649",
+                fileHeader: "\u062d\u0633\u0627\u0628 Dalam World\n\n",
+                loginLabel: "\u0627\u0633\u0645 \u0627\u0644\u0645\u0633\u062a\u062e\u062f\u0645: ",
+                passwordLabel: "\u0643\u0644\u0645\u0629 \u0627\u0644\u0645\u0631\u0648\u0631: ",
+                emailLabel: "\u0627\u0644\u0628\u0631\u064a\u062f: "
+            },
+            cs: {
+                loginPlaceholder: "P\u0159ihla\u0161ovac\u00ed jm\u00e9no",
+                passwordPlaceholder: "Heslo",
+                repasswordPlaceholder: "Opakovat heslo",
+                emailPlaceholder: "Email",
+                refererPlaceholder: "Referen\u010dn\u00ed k\u00f3d",
+                registerButton: "Vytvo\u0159it Dalam ID",
+                genPass: "Generovat heslo",
+                showPass: "Zobrazit heslo",
+                saveTxt: "Ulo\u017eit \u00fa\u010det do .txt",
+                pageTitle: "Registrace",
+                pageSubtitle: "V\u00e1\u0161 pas do Dalam World",
+                loginError: "Login: 6\u201314 znak\u016f, pouze A-Za-z0-9-",
+                passwordError: "Heslo: musí mít 16 znaků",
+                repasswordError: "Hesla se neshoduj\u00ed",
+                emailError: "Neplatn\u00fd form\u00e1t emailu",
+                loginExists: "Login <b>{value}</b> ji\u017e existuje.",
+                emailExists: "Email <b>{value}</b> ji\u017e existuje.",
+                successTitle: "Gratulujeme!",
+                successText: "St\u00e1hn\u011bte si hru z Dalam.World!\nPodporov\u00e1no na Windows, Linux, MacOS",
+                sending: "Vytv\u00e1\u0159en\u00ed \u00fa\u010dtu...",
+                controlPanel: "Ovl\u00e1dac\u00ed panel",
+                forum: "F\u00f3rum",
+                fileHeader: "\u00da\u010det Dalam World\n\n",
+                loginLabel: "Login: ",
+                passwordLabel: "Heslo: ",
+                emailLabel: "Email: "
+            },
+            ro: {
+                loginPlaceholder: "Nume utilizator",
+                passwordPlaceholder: "Parol\u0103",
+                repasswordPlaceholder: "Repet\u0103 parola",
+                emailPlaceholder: "Email",
+                refererPlaceholder: "Cod de referin\u021b\u0103",
+                registerButton: "Creeaz\u0103 Dalam ID",
+                genPass: "Genereaz\u0103 parol\u0103",
+                showPass: "Afi\u0219eaz\u0103 parola",
+                saveTxt: "Salveaz\u0103 contul \u00een .txt",
+                pageTitle: "\u00cenregistrare",
+                pageSubtitle: "Pa\u0219aportul t\u0103u c\u0103tre Dalam World",
+                loginError: "Login: 6\u201314 caractere, doar A-Za-z0-9-",
+                passwordError: "Parola: trebuie s\u0103 aib\u0103 6\u201316 caractere",
+                repasswordError: "Parolele nu se potrivesc",
+                emailError: "Format email invalid",
+                loginExists: "Login-ul <b>{value}</b> exist\u0103 deja.",
+                emailExists: "Email-ul <b>{value}</b> exist\u0103 deja.",
+                successTitle: "Felicit\u0103ri!",
+                successText: "Descarc\u0103 jocul de pe Dalam.World!\nSuportat pe Windows, Linux, MacOS",
+                sending: "Creare cont...",
+                controlPanel: "Panou de Control",
+                forum: "Forum",
+                fileHeader: "Cont Dalam World\n\n",
+                loginLabel: "Login: ",
+                passwordLabel: "Parol\u0103: ",
+                emailLabel: "Email: "
+            }
+        };
+
+        /* ==================== НАЗВАНИЯ ЯЗЫКОВ ==================== */
+        const langNames = {
+            en: 'English', ru: '\u0420\u0443\u0441\u0441\u043a\u0438\u0439', pl: 'Polski', id: 'Bahasa Indonesia',
+            zh: '\u4e2d\u6587', hi: '\u0939\u093f\u0928\u094d\u0926\u0940', ja: '\u65e5\u672c\u8a9e', ko: '\ud55c\u092d\u0940',
+            pt: 'Portugu\u00eas', fr: 'Fran\u00e7ais', vi: 'Ti\u1ebfng Vi\u1ec7t', de: 'Deutsch',
+            es: 'Espa\u00f1ol', hu: 'Magyar', uz: "O'zbek", mn: '\u041c\u043e\u043d\u0433\u043e\u043b',
+            uk: '\u0423\u043a\u0440\u0430\u0457\u043d\u0441\u044c\u043a\u0430', el: '\u0395\u03bb\u03bb\u03b7\u03bd\u03b9\u03ba\u03ac',
+            tr: 'T\u00fcrk\u00e7e', it: 'Italiano', th: '\u0e44\u0e17\u0e22', ar: '\u0627\u0644\u0639\u0631\u0628\u064a\u0629',
+            cs: '\u010ce\u0161tina', ro: 'Rom\u00e2n\u0103'
+        };
+
+        /* Языки, видимые как кнопки */
+        const visibleLangs = ['en', 'ru', 'id', 'tr', 'pl', 'pt', 'de'];
+
+        /* ==================== ОПРЕДЕЛЕНИЕ ЯЗЫКА ==================== */
+        function getUserLanguage() {
+            // 1. GET параметр ?lang=xx
+            const params = new URLSearchParams(window.location.search);
+            const langParam = params.get('lang');
+            const supported = Object.keys(translations);
+            if (langParam && supported.includes(langParam)) return langParam;
+
+            // 2. localStorage
+            const saved = localStorage.getItem('dalam_lang');
+            if (saved && supported.includes(saved)) return saved;
+
+            // 3. Браузер
+            const lang = (navigator.language || navigator.userLanguage || 'en').toLowerCase().split('-')[0];
+            return supported.includes(lang) ? lang : 'en';
+        }
+
+        let currentLang = getUserLanguage();
+        let t = translations[currentLang];
+
+        /* ==================== COOKIE ==================== */
+        function setCookie(name, value, days) {
+            let expires = '';
+            if (days) {
+                const date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                expires = '; expires=' + date.toUTCString();
+            }
+            document.cookie = name + '=' + (value || '') + expires + '; path=/; domain=.dalam.world';
+        }
+
+        function getCookie(name) {
+            const nameEQ = name + '=';
+            const ca = document.cookie.split(';');
+            for (let i = 0; i < ca.length; i++) {
+                let c = ca[i];
+                while (c.charAt(0) === ' ') c = c.substring(1);
+                if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length);
+            }
+            return null;
+        }
+
+        /* ==================== GET ПАРАМЕТРЫ ==================== */
+        let _showRef = false;
+
+        function initFromUrl() {
+            const params = new URLSearchParams(window.location.search);
+
+            // endpoint — base64 URL для редиректа
+            const ep = params.get('endpoint');
+            if (ep) {
+                try { window._redirectUrl = atob(ep); }
+                catch(e) { window._redirectUrl = 'https://dalam.world/login'; }
+            } else {
+                window._redirectUrl = 'https://dalam.world/login';
+            }
+
+            // save_txt
+            const saveTxt = params.get('save_txt');
+            if (saveTxt === 'true') {
+                document.getElementById('save-txt-checkbox').checked = true;
+            }
+
+            // show_ref
+            _showRef = params.get('show_ref') === 'true';
+        }
+
+        /* ==================== РЕФЕРАЛЬНАЯ СИСТЕМА ==================== */
+        function handleReferral() {
+            const params = new URLSearchParams(window.location.search);
+            const refFromUrl = params.get('ref_id');
+            const refFromCookie = getCookie('ref_id');
+            let referralCode = '';
+
+            if (refFromUrl) {
+                referralCode = refFromUrl;
+                setCookie('ref_id', referralCode, 30);
+            } else if (refFromCookie) {
+                referralCode = refFromCookie;
+            }
+
+            if (referralCode) {
+                fields.referer.value = referralCode;
+                if (!_showRef) {
+                    document.getElementById('referer-group').style.display = 'none';
+                }
+            }
+        }
+
+        /* ==================== ЭЛЕМЕНТЫ ==================== */
+        const form = document.getElementById('register-form');
+        const submitBtn = document.getElementById('submit-btn');
+        const messages = document.getElementById('messages');
+        const genPassLink = document.getElementById('gen-pass');
+        const pageSubtitle = document.getElementById('page-subtitle');
+
+        const fields = {
+            login: document.getElementById('RegisterForm_login'),
+            password: document.getElementById('RegisterForm_password'),
+            repassword: document.getElementById('RegisterForm_re_password'),
+            email: document.getElementById('RegisterForm_email'),
+            referer: document.getElementById('RegisterForm_referer'),
+            csrf: document.getElementById('GHTWEB_CSRF_TOKEN')
+        };
+
+        const errs = {
+            login: document.getElementById('err-login'),
+            password: document.getElementById('err-password'),
+            repassword: document.getElementById('err-repassword'),
+            email: document.getElementById('err-email')
+        };
+
+        /* ==================== ПЕРЕВОДЫ UI ==================== */
+        function applyTranslations() {
+            fields.login.placeholder = t.loginPlaceholder;
+            fields.password.placeholder = t.passwordPlaceholder;
+            fields.repassword.placeholder = t.repasswordPlaceholder;
+            fields.email.placeholder = t.emailPlaceholder;
+            fields.referer.placeholder = t.refererPlaceholder;
+
+            submitBtn.textContent = t.registerButton;
+            if (genPassLink) genPassLink.textContent = t.genPass;
+            if (pageSubtitle) pageSubtitle.textContent = t.pageSubtitle;
+
+            document.getElementById('show-pass-label').textContent = t.showPass;
+            document.getElementById('save-txt-label').textContent = t.saveTxt;
+            document.querySelector('#link-cp span').textContent = t.controlPanel;
+            document.querySelector('#link-forum span').textContent = t.forum;
+
+            document.title = 'Dalam ID \u2014 ' + t.pageTitle;
+
+            window.validationErrors = {
+                login: t.loginError,
+                password: t.passwordError,
+                repassword: t.repasswordError,
+                email: t.emailError
+            };
+        }
+
+        /* ==================== ВАЛИДАЦИЯ ==================== */
+        function clearErrors() {
+            for (let k in errs) {
+                errs[k].textContent = '';
+                errs[k].previousElementSibling && errs[k].previousElementSibling.classList.remove('input-error');
+            }
+            messages.innerHTML = '';
+        }
+
+        function validate() {
+            clearErrors();
+            let ok = true;
+
+            if (!/^[A-Za-z0-9-]{6,14}$/.test(fields.login.value.trim())) {
+                errs.login.textContent = window.validationErrors.login;
+                fields.login.classList.add('input-error');
+                ok = false;
+            }
+
+            const pv = fields.password.value;
+            if (pv.length < 6 || pv.length > 16) {
+                errs.password.textContent = window.validationErrors.password;
+                fields.password.classList.add('input-error');
+                ok = false;
+            }
+
+            if (pv !== fields.repassword.value) {
+                errs.repassword.textContent = window.validationErrors.repassword;
+                fields.repassword.classList.add('input-error');
+                ok = false;
+            }
+
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(fields.email.value.trim())) {
+                errs.email.textContent = window.validationErrors.email;
+                fields.email.classList.add('input-error');
+                ok = false;
+            }
+
+            return ok;
+        }
+
+        /* ==================== ГЕНЕРАЦИЯ ПАРОЛЯ ==================== */
+        if (genPassLink) {
+            genPassLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789-';
+                let out = '';
+                for (let i = 0; i < 12; i++) {
+                    out += chars.charAt(Math.floor(Math.random() * chars.length));
+                }
+                fields.password.value = out;
+                fields.repassword.value = out;
+                // Показываем пароль и ставим галочку
+                fields.password.type = 'text';
+                fields.repassword.type = 'text';
+                document.getElementById('show-pass').checked = true;
+            });
+        }
+
+        /* ==================== ПОКАЗ/СКРЫТИЕ ПАРОЛЯ ==================== */
+        document.getElementById('show-pass').addEventListener('change', function() {
+            const type = this.checked ? 'text' : 'password';
+            fields.password.type = type;
+            fields.repassword.type = type;
+        });
+
+        /* ==================== СООБЩЕНИЯ ==================== */
+        function showMessage(html, type) {
+            const div = document.createElement('div');
+            div.className = 'alert ' + (type === 'success' ? 'alert-success' : 'alert-danger');
+            div.innerHTML = html;
+            messages.appendChild(div);
+        }
+
+        /* ==================== СКАЧИВАНИЕ TXT ==================== */
+        function downloadAccountFile() {
+            const login = fields.login.value.trim();
+            const password = fields.password.value;
+            const email = fields.email.value.trim();
+
+            const content =
+                t.fileHeader +
+                t.loginLabel + login + '\n' +
+                t.passwordLabel + password + '\n' +
+                t.emailLabel + email + '\n\n' +
+                t.successTitle + '\n' +
+                t.successText;
+
+            const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'Dalam World Account.txt';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        /* ==================== УСПЕХ ==================== */
+        function handleSuccess() {
+            // Скачать TXT только если чекбокс отмечен
+            if (document.getElementById('save-txt-checkbox').checked) {
+                downloadAccountFile();
+            }
+
+            // Зелёная вспышка карточки
+            const card = document.getElementById('card');
+            if (card) card.classList.add('success-flash');
+
+            // Показать сообщение
+            const successHTML =
+                '<div style="text-align:center">' +
+                '<h4>' + t.successTitle + '</h4>' +
+                '<p style="white-space:pre-line;margin:8px 0 0">' + t.successText + '</p>' +
+                '</div>';
+            showMessage(successHTML, 'success');
+
+            // Редирект через 1.5 секунды
+            setTimeout(function() {
+                window.location.href = window._redirectUrl;
+            }, 1500);
+        }
+
+        /* ==================== ОБРАБОТКА ОШИБОК ==================== */
+        function handleError(danger) {
+            const ul = danger.querySelector('ul');
+            if (!ul) {
+                showMessage(danger.innerHTML, 'danger');
+                return;
+            }
+
+            const li = ul.querySelector('li');
+            if (!li) {
+                showMessage(ul.outerHTML, 'danger');
+                return;
+            }
+
+            const b = li.querySelector('b');
+            const valueHTML = b ? b.innerHTML : '';
+            const liText = li.innerText || '';
+
+            // Логин уже существует
+            if (liText.includes('\u041b\u043e\u0433\u0438\u043d') || liText.includes('Login') || liText.includes('login') || liText.includes('\u041b\u043e\u0433\u0456\u043d')) {
+                const translated = t.loginExists.replace('{value}', valueHTML);
+                showMessage('<ul><li>' + translated + '</li></ul>', 'danger');
+                return;
+            }
+
+            // Email уже существует
+            if (liText.toLowerCase().includes('email') || liText.includes('\u042d\u043b\u0435\u043a\u0442\u0440\u043e\u043d') || liText.includes('\u0415\u043c\u0435\u0439\u043b')) {
+                const cfLink = li.querySelector('.__cf_email__');
+                let emailValue = '';
+                if (cfLink) {
+                    emailValue = cfLink.textContent.trim();
+                } else {
+                    emailValue = b ? b.textContent.trim() : fields.email.value.trim();
+                }
+                const translated = t.emailExists.replace('{value}', emailValue || fields.email.value.trim());
+                showMessage('<ul><li>' + translated + '</li></ul>', 'danger');
+                return;
+            }
+
+            // Любая другая ошибка
+            showMessage(ul.outerHTML, 'danger');
+        }
+
+        /* ==================== ОТПРАВКА ФОРМЫ ==================== */
+        async function submitAjax(e) {
+            e.preventDefault();
+            if (!validate()) return;
+
+            const originalText = submitBtn.textContent;
+            submitBtn.disabled = true;
+            submitBtn.textContent = t.sending;
+
+            clearErrors();
+
+            try {
+                const fd = new FormData();
+                fd.set('GHTWEB_CSRF_TOKEN', fields.csrf.value || '');
+                fd.set('RegisterForm[login]', fields.login.value.trim());
+                fd.set('RegisterForm[password]', fields.password.value);
+                fd.set('RegisterForm[re_password]', fields.repassword.value);
+                fd.set('RegisterForm[email]', fields.email.value.trim());
+                fd.set('RegisterForm[referer]', fields.referer.value.trim());
+
+                const resp = await fetch(form.action, {
+                    method: 'POST',
+                    body: fd,
+                    credentials: 'include'
+                });
+
+                const text = await resp.text();
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(text, 'text/html');
+
+                const success = doc.querySelector('.alert.alert-success');
+                const danger = doc.querySelector('.alert.alert-danger');
+
+                if (success) {
+                    handleSuccess();
+                } else if (danger) {
+                    handleError(danger);
+                } else {
+                    showMessage(doc.body.innerHTML, resp.ok ? 'success' : 'danger');
+                }
+
+                // Обновляем CSRF
+                const newCsrf = doc.querySelector('input[name="GHTWEB_CSRF_TOKEN"]');
+                if (newCsrf) fields.csrf.value = newCsrf.value;
+
+            } catch (err) {
+                showMessage('Error: ' + err.message, 'danger');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalText;
+            }
+        }
+
+        /* ==================== ПЕРЕКЛЮЧАТЕЛЬ ЯЗЫКОВ ==================== */
+        function initLanguageSwitcher() {
+            const container = document.getElementById('lang-switcher');
+            container.innerHTML = '';
+
+            // Видимые кнопки
+            visibleLangs.forEach(function(code) {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = 'lang-btn' + (code === currentLang ? ' active' : '');
+                btn.textContent = code.toUpperCase();
+                btn.setAttribute('aria-label', langNames[code] || code);
+                btn.addEventListener('click', function() { switchLanguage(code); });
+                container.appendChild(btn);
+            });
+
+            // Кнопка "+"
+            const moreWrap = document.createElement('div');
+            moreWrap.className = 'lang-more';
+
+            const moreBtn = document.createElement('button');
+            moreBtn.type = 'button';
+            moreBtn.className = 'lang-btn';
+            moreBtn.textContent = '+';
+            moreBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                dropdown.classList.toggle('open');
+            });
+            moreWrap.appendChild(moreBtn);
+
+            // Выпадающий список
+            const dropdown = document.createElement('div');
+            dropdown.className = 'lang-dropdown';
+
+            const allLangs = Object.keys(translations);
+            allLangs.forEach(function(code) {
+                if (visibleLangs.includes(code)) return;
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.textContent = langNames[code] || code;
+                if (code === currentLang) btn.style.color = 'var(--gold)';
+                btn.addEventListener('click', function() {
+                    switchLanguage(code);
+                    dropdown.classList.remove('open');
+                });
+                dropdown.appendChild(btn);
+            });
+
+            moreWrap.appendChild(dropdown);
+            container.appendChild(moreWrap);
+
+            // Закрытие дропдауна при клике вне
+            document.addEventListener('click', function() {
+                dropdown.classList.remove('open');
+            });
+        }
+
+        function switchLanguage(code) {
+            if (!translations[code]) return;
+            currentLang = code;
+            t = translations[code];
+            localStorage.setItem('dalam_lang', code);
+
+            // RTL для арабского
+            document.documentElement.dir = code === 'ar' ? 'rtl' : 'ltr';
+            document.documentElement.lang = code;
+
+            applyTranslations();
+            initLanguageSwitcher();
+        }
+
+        /* ==================== ИНИЦИАЛИЗАЦИЯ ==================== */
+        function init() {
+            // RTL для арабского при первой загрузке
+            document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+            document.documentElement.lang = currentLang;
+
+            initFromUrl();
+            applyTranslations();
+            handleReferral();
+            initLanguageSwitcher();
+            form.addEventListener('submit', submitAjax);
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init);
+        } else {
+            init();
+        }
+
+    })();
+    </script>
+</body>
+</html>
